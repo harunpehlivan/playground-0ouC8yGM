@@ -12,6 +12,10 @@ The source code is on [GitHub](https://github.com/iadevoops/playground-0ouC8yGM)
 
 @[Comparison between Breadth First Search and Beam Search]({"stubs": ["Exercises/SearchAlgoComparison.cs"],"command": "SearchAlgo.SearchAlgoTest.comparisonBFS_BMS"})
 
+## Remark
+
+This example is a smallest distance computation, unfixed beam sized makes the beam search becoming an A* algorithm. 
+
 ### More Resources 
 
 [`Breadth First Search pseudo algorithm`](https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode)
