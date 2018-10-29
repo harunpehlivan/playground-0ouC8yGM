@@ -189,6 +189,7 @@ namespace SearchAlgo
         }
 // }
 
+        // be careful, the below mazes representations are reversed
         static string[] mapEmpty =
         {
             ".....",
@@ -232,10 +233,10 @@ namespace SearchAlgo
             "#.......######.......#",
             "######################"
         };
-
+        
         public static void run_comparison()
         {
-            // ( 0  0) to ( 4  4) be careful, the map representation is reversed
+            // ( 0  0) to ( 4  4) 
             breadthFirst_search(mapEmpty, 0, 0, 4, 4);
             beam_search(mapEmpty, 1, 0, 0, 4, 4); // beamSize = 1
             Console.WriteLine();
