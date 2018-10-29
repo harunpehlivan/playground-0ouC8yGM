@@ -174,7 +174,6 @@ namespace Answer
         
                         if (c1.x == cell_f.x && c1.y == cell_f.y)
                         {
-                            ++step;
                             cell_f.d = c1.d;
                             Console.WriteLine($"Beam search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) = {cell_f.d,3}; Total step:{step,3}; beamSize:{beamSize}");
                             return;
