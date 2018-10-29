@@ -14,7 +14,7 @@ The source code is on [GitHub](https://github.com/iadevoops/playground-0ouC8yGM)
 
 ## Conclusion
 
-A beam search algorithm is very easy to write an its a great optimization of the bfs. A bad choice for the score function cause to lose informations during filtering (or the pruning) operation. A lots of variation can be made respecting the beam search algorithm principle of using a limited size collection beam selected by a heuristic.
+A beam search algorithm is very easy to write an its a great optimization of the bfs. A bad choice for the score function cause to lose informations during filtering (or the pruning) operation. A lots of variation can be made respecting the beam search algorithm principle of using a heuristic to choose a limited size collection beam.
 
 ## Remark
 
