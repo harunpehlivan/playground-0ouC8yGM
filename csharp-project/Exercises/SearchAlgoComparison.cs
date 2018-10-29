@@ -81,6 +81,9 @@ namespace SearchAlgo
             {
                 ++step;
                 var c0 = q.Dequeue();
+                
+                // can add here some jobs and operations with the current cell c0
+                // for more complex search system
     
                 for(int k = 0; k < 4; ++k)
                 {
@@ -101,7 +104,7 @@ namespace SearchAlgo
                     c1.d = c0.d + 1;
                     q.Enqueue(c1);
                     maze.grid[x0][y0] = c1;
-    
+                        
                     if (c1.x == cell_f.x && c1.y == cell_f.y)
                     {
                         cell_f.d = c1.d;
@@ -152,6 +155,10 @@ namespace SearchAlgo
                 foreach (var c0 in beam)
                 {
                     ++step;
+                    
+                    // can add here some jobs and operations with the current cell c0
+                    // for more complex search system
+                    
                     for (int k = 0; k < 4; ++k)
                     {
                         int x0 = c0.x;
