@@ -11,7 +11,7 @@ namespace SearchAlgo
         [TestMethod]
         public void comparisonBFS_BMS() 
         {
-            SearchAlgoStub.run_comparison();
+            SearchAlgoComparison.run_comparison();
         }
     }
 }
