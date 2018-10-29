@@ -9,64 +9,254 @@ namespace TechIo
     [TestClass]
     public class UniverseTest
     {
-	private bool shouldShowHint = false;
+
+        struct Cell
+        {
+            public int x, y, d;
+            public char c;
+            public bool visited;
+        }
+
+        class Maze
+        {
+            public Cell[][] grid;
+            public int width, height;
+
+            public bool isInGrid(int x, int y)
+            {
+                return x >= 0 && x < width && y >= 0 && y < height;
+            }
+        }
+
+        static Maze mapToMaze(string[] map)
+        {
+            Cell[][] grid = new Cell[map.Length][];
+            for (int x = 0; x < map.Length; ++x)
+            {
+                var s = map[x];
+                grid[x] = new Cell[s.Length];
+                for (int y = 0; y < s.Length; ++y)
+                {
+                    var c = s[y] == '#' ? '#' : '.';
+                    grid[x][y] = new Cell() { x = x, y = y, c = c, visited = false, d = 0 };
+                }
+            }
+
+            Maze maze0 = new Maze();
+            maze0.grid = grid;
+            maze0.width = grid.Length;
+            maze0.height = grid[0].Length;
+
+            return maze0;
+        }
+
+        static void breadthFirst_search(string[] map, int xi, int yi, int xf, int yf)
+        {
+            Maze maze = mapToMaze(map);
+            if (!maze.isInGrid(xi, yi) || !maze.isInGrid(xf, yf))
+            {
+                Console.WriteLine("Out of Bounds Coords");
+                return;
+            }
+
+            var cell_i = maze.grid[xi][yi];
+            var cell_f = maze.grid[xf][yf];
+
+            if (cell_i.c != '.' || cell_f.c != '.')
+            {
+                Console.WriteLine("Bad Cells");
+                return;
+            }
+
+            bfs(maze, cell_i, cell_f);
+        }
+
+        static void bfs(Maze maze, Cell cell_i, Cell cell_f)
+        {
+            cell_i.visited = true;
+            maze.grid[cell_i.x][cell_i.y] = cell_i;
+            Queue<Cell> q = new Queue<Cell>();
+            q.Enqueue(cell_i);
+
+            int step = 0;
+
+            while (q.Count != 0)
+            {
+                ++step;
+                var c0 = q.Dequeue();
+
+                for(int k = 0; k < 4; ++k)
+                {
+                    int x0 = c0.x;
+                    int y0 = c0.y;
+
+                    if (k == 0) x0 = c0.x + 1;
+                    else if (k == 1) x0 = c0.x - 1;
+                    else if (k == 2) y0 = c0.y + 1;
+                    else y0 = c0.y - 1;
+
+                    if (!maze.isInGrid(x0, y0)) continue;
+
+                    var c1 = maze.grid[x0][y0];
+                    if (c1.visited || c1.c != '.') continue;
+
+                    c1.visited = true;
+                    c1.d = c0.d + 1;
+                    q.Enqueue(c1);
+                    maze.grid[x0][y0] = c1;
+
+                    if (c1.x == cell_f.x && c1.y == cell_f.y)
+                    {
+                        cell_f.d = c1.d;
+                        q.Clear();
+                        break;
+                    }
+                }
+            }
+
+            Console.WriteLine($"BFS  search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) = {cell_f.d,3}; Total step:{step}");
+        }
+
+        static void beam_search(string[] map, int beamSize, int xi, int yi, int xf, int yf)
+        {
+            Maze maze = mapToMaze(map);
+            if (!maze.isInGrid(xi, yi) || !maze.isInGrid(xf, yf))
+            {
+                Console.WriteLine("Out of Bounds Coords");
+                return;
+            }
+
+            var cell_i = maze.grid[xi][yi];
+            var cell_f = maze.grid[xf][yf];
+
+            if (cell_i.c != '.' || cell_f.c != '.')
+            {
+                Console.WriteLine("Bad Cells");
+                return;
+            }
+
+            bms(maze, beamSize, cell_i, cell_f);
+        }
+
+        static void bms(Maze maze, int beamSize, Cell cell_i, Cell cell_f)
+        {
+            Func<Cell, int> heuristic = ca => Math.Abs(ca.x - cell_f.x) + Math.Abs(ca.y - cell_f.y); /// manhattan distance
+
+            cell_i.visited = true;
+            maze.grid[cell_i.x][cell_i.y] = cell_i;
+            List<Cell> beam = new List<Cell>();
+            List<Cell> set = new List<Cell>();
+            beam.Add(cell_i);
+
+            int step = 0;
+
+            while (beam.Count != 0)
+            {
+                set.Clear();
+
+                foreach (var c0 in beam)
+                {
+                    ++step;
+                    for (int k = 0; k < 4; ++k)
+                    {
+                        int x0 = c0.x;
+                        int y0 = c0.y;
+
+                        if (k == 0) x0 = c0.x + 1;
+                        else if (k == 1) x0 = c0.x - 1;
+                        else if (k == 2) y0 = c0.y + 1;
+                        else y0 = c0.y - 1;
+
+                        if (!maze.isInGrid(x0, y0)) continue;
+
+                        var c1 = maze.grid[x0][y0];
+                        if (c1.visited || c1.c != '.') continue;
+
+                        c1.visited = true;
+                        c1.d = c0.d + 1;
+                        maze.grid[x0][y0] = c1;
+                        set.Add(c1);
+
+                        if (c1.x == cell_f.x && c1.y == cell_f.y)
+                        {
+                            cell_f.d = c1.d;
+                            Console.WriteLine($"Beam search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) = {cell_f.d,3}; Total step:{step,3}; beamSize:{beamSize}");
+                            return;
+                        }
+                    }
+                }
+
+                beam.Clear();
+                beam.AddRange(set.OrderBy(heuristic).Take(beamSize)); // Sort by heuristic and restrict size
+            }
+
+            Console.WriteLine($"Beam search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) => Not found; beamSize:{beamSize}");
+        }
+
+        static string[] mapEmpty =
+        {
+            ".....",
+            ".....",
+            ".....",
+            ".....",
+            "....."
+        };
+
+        static string[] mapSimple =
+        {
+            "...#......",
+            "...#......",
+            "...#......",
+            "...#..###.",
+            ".###..#...",
+            "......#...",
+            "..#####...",
+            "..#.......",
+            "..#......."
+        };
+
+        static String[] mapComplex =
+        {
+            "######################",
+            "#.......######.......#",
+            "#.###.#........#.###.#",
+            "#.#S#.##########.#S#.#",
+            "#.#.#.###w##w###.#.#.#",
+            "#....................#",
+            "#.#.#.##########.#.#.#",
+            "#.#.#..U......U..#.#.#",
+            "#.#.###.######.###.#.#",
+            "#.#.###.######.###.#.#",
+            "#.#.#..U......U..#.#.#",
+            "#.#.#.##########.#.#.#",
+            "#....................#",
+            "#.#.#.###w##w###.#.#.#",
+            "#.#S#.##########.#S#.#",
+            "#.###.#........#.###.#",
+            "#.......######.......#",
+            "######################"
+        };
+
 	[TestMethod]
-	public void VerifyCountAllStars() 
+	public void Comparison() 
 	{
-		shouldShowHint = true;
-		Assert.AreEqual (6,   UniverseStub.CountAllStars (1, 2, 3));
-		Assert.AreEqual (16,   UniverseStub.CountAllStars (10, 3, 2, 1));
-		Assert.AreEqual (42,   UniverseStub.CountAllStars (20, 20, 2));
-		shouldShowHint = false;
+            breadthFirst_search(mapEmpty, 0, 0, 4, 4);
+            breadthFirst_search(mapSimple, 2, 2, 0, 4);
+            breadthFirst_search(mapSimple, 3, 2, 8, 7);
+            breadthFirst_search(mapComplex, 2, 10, 15, 10);
+
+            Console.WriteLine();
+
+            int beamSize = 2;
+            beam_search(mapEmpty, beamSize, 0, 0, 4, 4);
+            beam_search(mapSimple, beamSize, 2, 2, 0, 4);
+            beam_search(mapSimple, beamSize, 3, 2, 8, 7);
+            beam_search(mapComplex, beamSize, 2, 10, 15, 10);
+
+            beamSize = 3;
+            beam_search(mapSimple, beamSize, 2, 2, 0, 4);
+            beam_search(mapSimple, beamSize, 3, 2, 8, 7);
 	}
 
-	[TestCleanup()]
-      	public void Cleanup()
-      	{		
-		if(shouldShowHint)
-		{	
-			// On Failure
-			PrintMessage("Hint 💡", "Did you properly accumulate all stars into 'totalStars'? 🤔");
-		} 
-		else
-		{
- 			// On success
-			if(ExistsInFile(@"/project/target/Exercises/UniverseStub.cs", "galaxies.Sum();")) 
-			{
-				PrintMessage("My personal Yoda, you are. 🙏", "* ● ¸ .　¸. :° ☾ ° 　¸. ● ¸ .　　¸.　:. • ");
-				PrintMessage("My personal Yoda, you are. 🙏", "           　★ °  ☆ ¸. ¸ 　★　 :.　 .   ");
-				PrintMessage("My personal Yoda, you are. 🙏", "__.-._     ° . .　　　　.　☾ ° 　. *   ¸ .");
-				PrintMessage("My personal Yoda, you are. 🙏", "'-._\\7'      .　　° ☾  ° 　¸.☆  ● .　　　");
-				PrintMessage("My personal Yoda, you are. 🙏", " /'.-c    　   * ●  ¸.　　°     ° 　¸.    ");
-				PrintMessage("My personal Yoda, you are. 🙏", " |  /T      　　°     ° 　¸.     ¸ .　　  ");
-				PrintMessage("My personal Yoda, you are. 🙏", "_)_/LI");
-			} else {
-				PrintMessage("Kudos 🌟", "Using Linq, your code could have been shorter. Try it!");
-				PrintMessage("Kudos 🌟", "");
-				PrintMessage("Kudos 🌟", "int[] galaxies = {37, 3, 2};");
-				PrintMessage("Kudos 🌟", "int totalStars = galaxies.Sum(); // 42");
-			}	
-		}
-      	}
-
-
-	/****
-		TOOLS
-	*****/
-	// Display a custom message in a custom channel
-	private static void PrintMessage(String channel, String message)
-	{		
-		Console.WriteLine ($"TECHIO> message --channel \"{channel}\" \"{message}\"");
-	}
-	// You can manually handle the success/failure of a testcase using this function
-	private static void Success(Boolean success)
-	{
-		Console.WriteLine($"TECHIO> success {success}");
-	}
-	// Check the user code looking for a keyword
-	private static Boolean ExistsInFile(String path, String keyword) 
-	{
-		return File.ReadAllText(path).Contains(keyword);
-	}
     }
 }
