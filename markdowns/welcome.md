@@ -2,11 +2,11 @@
 
 The source code is on [GitHub](https://github.com/TechDotIO/csharp-template), please feel free to come up with proposals to improve it.
 
-# Hands-on Demo
+## Run the Demo
 
 @[Comparison between Breadth First Search and Beam Search]({"stubs": ["Exercises/UniverseStub.cs"],"command": "TechIo.UniverseTest.comparisonBFS_BMS"})
 
-# More Resources 
+### More Resources 
 
 [`Breadth First Search pseudo algorithm`](https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode)
 
