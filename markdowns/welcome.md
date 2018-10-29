@@ -14,7 +14,7 @@ The source code is on [GitHub](https://github.com/iadevoops/playground-0ouC8yGM)
 
 ## Remark
 
-This example is a smallest distance computation, unfixed beam sized makes the beam search becoming an A* algorithm. 
+This example is a smallest distance computation, unfixed beam size makes the beam search becoming an A* algorithm. 
 
 ### More Resources 
 
