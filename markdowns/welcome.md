@@ -12,6 +12,10 @@ The source code is on [GitHub](https://github.com/iadevoops/playground-0ouC8yGM)
 
 @[Comparison between Breadth First Search and Beam Search]({"stubs": ["Exercises/SearchAlgoComparison.cs"],"command": "SearchAlgo.SearchAlgoTest.comparisonBFS_BMS"})
 
+## Conclusion
+
+A beam search algorithm is very easy to write an its a great optimization of the bfs. A bad choice for the score function cause to lose informations during filtering (or the pruning) operation. A lots of variation can be made and the beam search algorithm principle is the use of a limited size beam collection according to a heuristic through a set of data.
+
 ## Remark
 
 This example is a smallest distance computation, unfixed beam size makes the beam search becoming an A* algorithm. 
