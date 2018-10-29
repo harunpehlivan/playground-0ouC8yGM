@@ -235,7 +235,7 @@ namespace SearchAlgo
 
         public static void run_comparison()
         {
-            // ( 0  0) to ( 4  4) careful the map is reversed
+            // ( 0  0) to ( 4  4) be careful, the map representation is reversed
             breadthFirst_search(mapEmpty, 0, 0, 4, 4);
             beam_search(mapEmpty, 1, 0, 0, 4, 4); // beamSize = 1
             Console.WriteLine();
