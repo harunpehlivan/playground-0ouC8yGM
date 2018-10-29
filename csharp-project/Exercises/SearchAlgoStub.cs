@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace SearchAlgo
 {
-    public class SearchAlgoStub
+    public class SearchAlgoComparison
     {
         struct Cell
         {
