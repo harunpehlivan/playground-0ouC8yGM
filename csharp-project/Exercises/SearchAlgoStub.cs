@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Answer
 {
-    public class UniverseStub
+    public class SearchAlgoStub
     {
         struct Cell
         {
