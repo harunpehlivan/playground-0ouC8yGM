@@ -7,12 +7,12 @@ using System.IO;
 namespace TechIo
 {
     [TestClass]
-    public class UniverseTest
+    public class SearchAlgoTest
     {
 	[TestMethod]
 	public void comparisonBFS_BMS() 
 	{
-		UniverseStub.run_comparison();
+		SearchAlgoStub.run_comparison();
 	}
     }
 }
