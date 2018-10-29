@@ -6,7 +6,7 @@ The Beam Search is also a tree search algorithm but the data are filtered and so
 
 Lets compare these algorithms walking between two cells in a maze.
 
-The source code is on [GitHub](https://github.com/TechDotIO/csharp-template), please feel free to come up with proposals to improve it.
+The source code is on [GitHub](https://github.com/iadevoops/playground-0ouC8yGM), please feel free to come up with proposals to improve it.
 
 ## Run the Demo
 
