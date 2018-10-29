@@ -111,7 +111,7 @@ namespace Answer
 			}
 		    }
 
-		    Console.WriteLine($"BFS  search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) = {cell_f.d,3}; Total step:{step}");
+		    Console.WriteLine($"BFS  search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) = {cell_f.d,3}; Total step:{step,3}");
 		}
 
 		static void beam_search(string[] map, int beamSize, int xi, int yi, int xf, int yf)
