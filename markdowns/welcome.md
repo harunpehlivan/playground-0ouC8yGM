@@ -9,4 +9,5 @@ The source code is on [GitHub](https://github.com/TechDotIO/csharp-template), pl
 # More Resources 
 
 [`Breadth First Search pseudo algorithm`](https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode)
+
 [`Beam Search pseudo algorithm`](http://jhave.org/algorithms/graphs/beamsearch/beamsearch.shtml)
