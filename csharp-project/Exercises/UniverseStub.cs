@@ -105,13 +105,11 @@ namespace Answer
 			    if (c1.x == cell_f.x && c1.y == cell_f.y)
 			    {
 				cell_f.d = c1.d;
-				q.Clear();
-				break;
+				Console.WriteLine($"BFS  search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) = {cell_f.d,3}; Total step:{step,3}");
+				return;
 			    }
 			}
 		    }
-
-		    Console.WriteLine($"BFS  search; Distance ({cell_i.x,2} {cell_i.y,2}) to ({cell_f.x,2} {cell_f.y,2}) = {cell_f.d,3}; Total step:{step,3}");
 		}
 
 		static void beam_search(string[] map, int beamSize, int xi, int yi, int xf, int yf)
@@ -141,8 +139,8 @@ namespace Answer
 
 		    cell_i.visited = true;
 		    maze.grid[cell_i.x][cell_i.y] = cell_i;
-		    List<Cell> beam = new List<Cell>();
-		    List<Cell> set = new List<Cell>();
+		    List<Cell> beam = new List<Cell>(); // Can be fixed size for more speed
+		    List<Cell> set = new List<Cell>(); // Maximum size < beamSize x maxNeighbors
 		    beam.Add(cell_i);
 
 		    int step = 0;
@@ -237,20 +235,24 @@ namespace Answer
 
 		public static void run_comparison()
 		{
+		    // ( 0  0) to ( 4  4) careful the map is reversed
 		    breadthFirst_search(mapEmpty, 0, 0, 4, 4);
 		    beam_search(mapEmpty, 2, 0, 0, 4, 4); // beamSize = 2
 		    Console.WriteLine();
 
+		    // ( 2  2) to ( 0  4)
 		    breadthFirst_search(mapSimple, 2, 2, 0, 4);
 		    beam_search(mapSimple, 2, 2, 2, 0, 4); // beamSize = 2
 		    beam_search(mapSimple, 3, 2, 2, 0, 4); // beamSize = 3
 		    Console.WriteLine();
 			
+		    // ( 3  2) to ( 8  7)
 		    breadthFirst_search(mapSimple, 3, 2, 8, 7);
 		    beam_search(mapSimple, 2, 3, 2, 8, 7); // beamSize = 2
 		    beam_search(mapSimple, 3, 3, 2, 8, 7); // beamSize = 3
 		    Console.WriteLine();
 			
+		    // ( 2 10) to (15 10)
 		    breadthFirst_search(mapComplex, 2, 10, 15, 10);
 		    beam_search(mapComplex, 2, 2, 10, 15, 10); // beamSize = 2
 		    Console.WriteLine();
