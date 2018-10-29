@@ -22,6 +22,6 @@ This example is a smallest distance computation, unfixed beam size makes the bea
 
 ### More Resources 
 
-[`Breadth First Search pseudo algorithm`](https://en.wikipedia.org/wiki/Breadth-first_search#Pseudocode)
+[`Breadth First Search pseudo algorithm`](https://en.wikipedia.org/wiki/Beam_search)
 
 [`Beam Search pseudo algorithm`](http://jhave.org/algorithms/graphs/beamsearch/beamsearch.shtml)
