@@ -250,6 +250,8 @@ namespace Answer
 		    beam_search(mapSimple, beamSize, 3, 2, 8, 7);
 		    beam_search(mapComplex, beamSize, 2, 10, 15, 10);
 
+		    Console.WriteLine();
+
 		    beamSize = 3;
 		    beam_search(mapSimple, beamSize, 2, 2, 0, 4);
 		    beam_search(mapSimple, beamSize, 3, 2, 8, 7);
