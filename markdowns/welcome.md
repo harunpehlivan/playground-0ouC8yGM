@@ -2,7 +2,7 @@
 
 The Breadth First Search algorithm is based on a queue, a data collection where the First In element is the First Out at reading to search in a tree. Collection size may become unnecessarily large, making the algorithm running slower.
 
-The Beam Search is also a tree search algorithm but the data are filtered and sorted using a score fonction and the collection has a limited size. The algorithm is very fast but the results are not always guaranteed or optimal.
+The Beam Search is also a tree search algorithm but the data are filtered and sorted using a heuristic and the collection has a limited size. The algorithm is very fast but the results are not always guaranteed or optimal.
 
 Lets compare these algorithms walking between two cells in a maze.
 
