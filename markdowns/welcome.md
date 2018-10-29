@@ -10,7 +10,7 @@ The source code is on [GitHub](https://github.com/iadevoops/playground-0ouC8yGM)
 
 ## Run the Demo
 
-@[Comparison between Breadth First Search and Beam Search]({"stubs": ["Exercises/SearchAlgoStub.cs"],"command": "SearchAlgo.SearchAlgoTest.comparisonBFS_BMS"})
+@[Comparison between Breadth First Search and Beam Search]({"stubs": ["Exercises/SearchAlgoComparison.cs"],"command": "SearchAlgo.SearchAlgoTest.comparisonBFS_BMS"})
 
 ### More Resources 
 
