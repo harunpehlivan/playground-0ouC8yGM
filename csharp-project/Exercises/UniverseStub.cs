@@ -238,23 +238,22 @@ namespace Answer
 		public static void run_comparison()
 		{
 		    breadthFirst_search(mapEmpty, 0, 0, 4, 4);
+		    beam_search(mapEmpty, 2, 0, 0, 4, 4); // beamSize = 2
+		    Console.WriteLine();
+
 		    breadthFirst_search(mapSimple, 2, 2, 0, 4);
+		    beam_search(mapSimple, 2, 2, 2, 0, 4); // beamSize = 2
+		    beam_search(mapSimple, 3, 2, 2, 0, 4); // beamSize = 3
+		    Console.WriteLine();
+			
 		    breadthFirst_search(mapSimple, 3, 2, 8, 7);
+		    beam_search(mapSimple, 2, 3, 2, 8, 7); // beamSize = 2
+		    beam_search(mapSimple, 3, 3, 2, 8, 7); // beamSize = 3
+		    Console.WriteLine();
+			
 		    breadthFirst_search(mapComplex, 2, 10, 15, 10);
-
+		    beam_search(mapComplex, 2, 2, 10, 15, 10); // beamSize = 2
 		    Console.WriteLine();
-
-		    int beamSize = 2;
-		    beam_search(mapEmpty, beamSize, 0, 0, 4, 4);
-		    beam_search(mapSimple, beamSize, 2, 2, 0, 4);
-		    beam_search(mapSimple, beamSize, 3, 2, 8, 7);
-		    beam_search(mapComplex, beamSize, 2, 10, 15, 10);
-
-		    Console.WriteLine();
-
-		    beamSize = 3;
-		    beam_search(mapSimple, beamSize, 2, 2, 0, 4);
-		    beam_search(mapSimple, beamSize, 3, 2, 8, 7);
 
 		}
 	}
