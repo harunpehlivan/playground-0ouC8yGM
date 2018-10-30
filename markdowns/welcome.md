@@ -18,7 +18,7 @@ A beam search algorithm is very easy to write an its a great optimization of the
 
 ### Remark
 
-This example is a smallest distance computation, unfixed beam size makes the beam search becoming an A* algorithm. 
+This example is a smallest distance computation, unfixed beam size makes the beam search becoming an bfs algorithm. 
 
 ### More Resources 
 
